@@ -1,6 +1,10 @@
 import { Search, ShoppingCart, Heart } from "lucide-react";
 
-export function Header(){
+interface HeaderProps {
+  openShoppingCartModal: () => void
+}
+
+export function Header({ openShoppingCartModal }: HeaderProps){
   return (
     <header className="flex items-center justify-between px-6 py-3">
       <h1 className="text-2xl font-bold">JR.<span className="text-[#edcf5d]">M</span></h1>
@@ -11,7 +15,7 @@ export function Header(){
         <input type="text" className='bg-transparent focus:outline-none text-sm placeholder:text-zinc-500' placeholder="Pesquisar" />
       </div>
       <div className="flex items-center gap-3">
-        <button className='p-3 border rounded-full' >
+        <button className='p-3 border rounded-full' onClick={openShoppingCartModal} >
           <ShoppingCart className="size-4" />
         </button>
         <button className='p-3 border rounded-full' >
