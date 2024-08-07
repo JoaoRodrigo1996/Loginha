@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Header } from "@/components/header";
 import { ShoppingCartModal } from "@/components/shopping-cart-modal";
+import Link from "next/link";
 
 export default function Home() {
   const [isShoppingCartModalOpen, setIsShoppingCartModalOpen] = useState(false)
@@ -10,9 +11,26 @@ export default function Home() {
     {
       id: '1',
       title: 'Tênis Nike Court Vision Low Next Nature Masculino',
+      price: '499',
+      sizes: [34,35,36,37,38,39,40,41,42],
+      brand: 'Nike',
+      image_url: './shoe.avif'
+    },
+    {
+      id: '2',
+      title: 'Tênis Nike Court Vision Low Next Nature Masculino',
       price: '599',
       sizes: [34,35,36,37,38,39,40,41,42],
-      brand: 'Nike'
+      brand: 'Nike',
+      image_url: './shoe.avif'
+    },
+    {
+      id: '3',
+      title: 'Tênis Nike Court Vision Low Next Nature Masculino',
+      price: '899',
+      sizes: [34,35,36,37,38,39,40,41,42],
+      brand: 'Nike',
+      image_url: './shoe.avif'
     }
   ])
 
@@ -41,33 +59,21 @@ export default function Home() {
           </menu>
 
           <section className="flex items-center gap-5">
-            <div className="flex items-center flex-col border rounded-xl bg-zinc-100 hover:bg-white hover:cursor-pointer">
-              <div className="">
-                <img src="./shoe.avif" alt="" className="rounded-xl object-cover" />
-              </div>
-              <div className="p-4 space-y-2">
-                <p className='font-semibold'>Tênis Nike Court Vision Low Next Nature Masculino</p>
-                <span className="text-sm font-medium">R$ 599,00</span>
-              </div>
-            </div>
-            <div className="flex items-center flex-col border rounded-xl bg-zinc-100 hover:bg-white hover:cursor-pointer">
-              <div className="">
-                <img src="./shoe.avif" alt="" className="rounded-xl object-cover"/>
-              </div>
-              <div className="p-4 space-y-2">
-                <p className='font-semibold'>Tênis Nike Court Vision Low Next Nature Masculino</p>
-                <span className="text-sm font-medium">R$ 599,00</span>
-              </div>
-            </div>
-            <div className="flex items-center flex-col border rounded-xl bg-zinc-100 hover:bg-white hover:cursor-pointer">
-              <div className="">
-                <img src="./shoe.avif" alt="" className="rounded-xl object-cover"/>
-              </div>
-              <div className="p-4 space-y-2">
-                <p className='font-semibold'>Tênis Nike Court Vision Low Next Nature Masculino</p>
-                <span className="text-sm font-medium">R$ 599,00</span>
-              </div>
-            </div>
+            {
+              products.map(product => (
+                <div key={product.id} className="flex items-center flex-col border rounded-xl bg-zinc-100 hover:bg-white hover:cursor-pointer">
+                  <Link href={`/product/${product.id}`} >
+                    <div className="">
+                      <img src={product.image_url} alt="" className="rounded-xl object-cover" />
+                    </div>
+                    <div className="p-4 space-y-2">
+                      <p className='font-semibold'>{product.title}</p>
+                      <span className="text-sm font-medium">R$ {product.price}</span>
+                    </div>
+                  </Link>
+                </div>
+              ))
+            }
           </section>
         </main>
       </div>
