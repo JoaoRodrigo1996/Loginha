@@ -11,7 +11,7 @@ export default function Home() {
     {
       id: '1',
       title: 'Tênis Nike Court Vision Low Next Nature Masculino',
-      price: '499',
+      price: 49900,
       sizes: [34,35,36,37,38,39,40,41,42],
       brand: 'Nike',
       image_url: './shoe.avif'
@@ -19,7 +19,7 @@ export default function Home() {
     {
       id: '2',
       title: 'Tênis Nike Court Vision Low Next Nature Masculino',
-      price: '599',
+      price: 59990,
       sizes: [34,35,36,37,38,39,40,41,42],
       brand: 'Nike',
       image_url: './shoe.avif'
@@ -27,7 +27,7 @@ export default function Home() {
     {
       id: '3',
       title: 'Tênis Nike Court Vision Low Next Nature Masculino',
-      price: '899',
+      price: 89900,
       sizes: [34,35,36,37,38,39,40,41,42],
       brand: 'Nike',
       image_url: './shoe.avif'
@@ -68,7 +68,7 @@ export default function Home() {
                     </div>
                     <div className="p-4 space-y-2">
                       <p className='font-semibold'>{product.title}</p>
-                      <span className="text-sm font-medium">R$ {product.price}</span>
+                      <span className="text-sm font-medium">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.price / 100)}</span>
                     </div>
                   </Link>
                 </div>
