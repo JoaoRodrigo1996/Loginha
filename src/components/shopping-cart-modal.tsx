@@ -64,11 +64,11 @@ export function ShoppingCartModal({ closeShoppingCartModal }: ShoppingCartModalP
             <p className="text-2xl font-bold">R$ 1.596,00</p>
           </div>
 
-          <div className="absolute bottom-0 right-0 left-0">
+          <form action='/api/checkout-session' method="POST" className="absolute bottom-0 right-0 left-0">
             <button className="w-full h-11 bg-black text-zinc-50 flex items-center justify-center gap-3 rounded-lg">
               Comprar
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

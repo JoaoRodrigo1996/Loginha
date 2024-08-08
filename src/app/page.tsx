@@ -5,32 +5,29 @@ import { Header } from "@/components/header";
 import { ShoppingCartModal } from "@/components/shopping-cart-modal";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
   const [isShoppingCartModalOpen, setIsShoppingCartModalOpen] = useState(false)
   const [products, setProduct] = useState([
     {
       id: '1',
-      title: 'Tênis Nike Court Vision Low Next Nature Masculino',
-      price: 49900,
-      sizes: [34,35,36,37,38,39,40,41,42],
+      title: 'Chuteira Nike Mercurial Vapor 15 Academy Futsal',
+      price: 49900,      
       brand: 'Nike',
-      image_url: './shoe.avif'
+      image_url: './nike1.png'
     },
     {
       id: '2',
-      title: 'Tênis Nike Court Vision Low Next Nature Masculino',
+      title: 'Chuteira Nike Mercurial Vapor 15 Club Futsal',
       price: 59990,
-      sizes: [34,35,36,37,38,39,40,41,42],
       brand: 'Nike',
-      image_url: './shoe.avif'
+      image_url: './nike2.png'
     },
     {
       id: '3',
       title: 'Tênis Nike Court Vision Low Next Nature Masculino',
       price: 89900,
-      sizes: [34,35,36,37,38,39,40,41,42],
       brand: 'Nike',
-      image_url: './shoe.avif'
+      image_url: './nike3.png'
     }
   ])
 
