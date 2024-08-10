@@ -1,10 +1,20 @@
+'use client'
+
 import { Search, ShoppingCart, Heart } from "lucide-react";
+import { useState } from "react";
+import { ShoppingCartModal } from "./shopping-cart-modal";
 
-interface HeaderProps {
-  openShoppingCartModal: () => void
-}
+export function Header(){
+  const [isShoppingCartModalOpen, setIsShoppingCartModalOpen] = useState(false)
 
-export function Header({ openShoppingCartModal }: HeaderProps){
+  function openShoppingCartModal(){
+    setIsShoppingCartModalOpen(true)
+  }
+
+  function closeShoppingCartModal(){
+    setIsShoppingCartModalOpen(false)
+  }  
+
   return (
     <header className="flex items-center justify-between px-6 py-3">
       <h1 className="text-2xl font-bold">JR.<span className="text-[#edcf5d]">M</span></h1>
@@ -25,6 +35,13 @@ export function Header({ openShoppingCartModal }: HeaderProps){
           <img className='size-[42px] rounded-full' src="https://github.com/JoaoRodrigo1996.png" alt="" />
         </div>
       </div>
+      {
+        isShoppingCartModalOpen && (
+          < ShoppingCartModal
+            closeShoppingCartModal={closeShoppingCartModal}
+          />
+        )
+      }
     </header>
   )
 }

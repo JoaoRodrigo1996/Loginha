@@ -1,0 +1,25 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "title": "Chuteira Nike Mercurial Vapor 15 Academy Futsal",
+      "price": 49900,      
+      "brand": "Nike",
+      "image_url": "./nike1.png"
+    },
+    {
+      "id": "2",
+      "title": "Chuteira Nike Mercurial Vapor 15 Club Futsal",
+      "price": 59990,
+      "brand": "Nike",
+      "image_url": "./nike2.png"
+    },
+    {
+      "id": "3",
+      "title": "Tênis Nike Court Vision Low Next Nature Masculino",
+      "price": 89900,
+      "brand": "Nike",
+      "image_url": "./nike3.png"
+    }
+  ]
+}

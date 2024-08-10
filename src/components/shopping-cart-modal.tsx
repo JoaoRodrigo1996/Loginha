@@ -6,7 +6,7 @@ interface ShoppingCartModalProps {
 
 export function ShoppingCartModal({ closeShoppingCartModal }: ShoppingCartModalProps){
   return (
-    <div className="absolute inset-0 bg-black/60">
+    <div className="absolute inset-0 bg-black/60 z-10">
       <div className="flex flex-col absolute right-1 top-1 bottom-1 w-[420px] bg-white rounded-xl py-5 px-6 shadow-sm space-y-4">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
