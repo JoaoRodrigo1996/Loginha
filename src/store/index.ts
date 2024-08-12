@@ -13,8 +13,8 @@ export interface Product {
 export interface ProductState {
   cartItems: Product[]
   cartTotal: number
-  addProductToCart: (product: Product) => void
-  removeProductFromCart: (productId: string) => void
+  addProductToCart: (product: Product) => Promise<void>
+  removeProductFromCart: (productId: string) => Promise<void>
 }
 
 export const useStore = create<ProductState>((set) => {
@@ -22,14 +22,14 @@ export const useStore = create<ProductState>((set) => {
     cartItems: [],
     cartTotal: 0,
 
-    addProductToCart: (product: Product) => {
+    addProductToCart: async (product: Product) => {
       set((state) => ({
         cartItems: [...state.cartItems, product]
       })
       )
     },
 
-    removeProductFromCart: (productId: string) => {
+    removeProductFromCart: async (productId: string) => {
       set((state) => ({
         cartItems: state.cartItems.filter(item => item.id === productId)
       }))
