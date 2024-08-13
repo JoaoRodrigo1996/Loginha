@@ -3,9 +3,16 @@
 import { Search, ShoppingCart, Heart } from "lucide-react";
 import { useState } from "react";
 import { ShoppingCartModal } from "./shopping-cart-modal";
+import { useStore } from "@/store";
 
 export function Header(){
   const [isShoppingCartModalOpen, setIsShoppingCartModalOpen] = useState(false)
+
+  const { cartItems } = useStore((store) => {
+    return {
+      cartItems: store.cartItems
+    }
+  })
 
   function openShoppingCartModal(){
     setIsShoppingCartModalOpen(true)
@@ -25,9 +32,16 @@ export function Header(){
         <input type="text" className='bg-transparent focus:outline-none text-sm placeholder:text-zinc-500' placeholder="Pesquisar" />
       </div>
       <div className="flex items-center gap-3">
-        <button className='p-3 border rounded-full' onClick={openShoppingCartModal} >
-          <ShoppingCart className="size-4" />
-        </button>
+        <div className="relative flex items-center justify-center">
+          <button className='p-3 border rounded-full' onClick={openShoppingCartModal} >
+            <ShoppingCart className="size-4" />
+          </button>
+          {
+            cartItems.length > 0 && (
+              <div className="absolute -bottom-0 right-0 bg-white text-xs font-bold ">{cartItems.length}</div>
+            )
+          }
+        </div>
         <button className='p-3 border rounded-full' >
           <Heart className="size-4" />
         </button>
