@@ -1,6 +1,7 @@
 import { Header } from "@/components/header";
 import { Product } from "@/components/product";
 import { stripe } from "@/lib/stripe";
+import { Product as ProductProps } from "@/store";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import Stripe from "stripe";
@@ -9,18 +10,18 @@ export default async function Page({ params }: { params: { id: string } }) {
   const response = await stripe.products.retrieve(params.id, {
     expand: ["default_price"],
   }); 
-  const price = response.default_price as Stripe.Price
-  const product = {
+  const price = response.default_price
+  const product: ProductProps = {
     id: response.id,
     name: response.name,
     imageUrl: response.images[0],
-    price: new Intl.NumberFormat("pt-BR", {
+    price: price.unit_amount && new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
     }).format(price.unit_amount / 100),
-    numberPrice: response.unit_amount / 100,
+    numberPrice: price.unit_amount && price.unit_amount / 100 as Number,
     description: response.description,
-    defaultPriceId: response.id,
+    defaultPriceId: price.id,
   }
 
   return (

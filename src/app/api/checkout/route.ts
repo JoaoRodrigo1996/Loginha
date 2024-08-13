@@ -1,19 +1,22 @@
 import { stripe } from "@/lib/stripe";
 import { Product } from "@/store";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest } from "next/server";
 
-export default async function POST(
-  req: NextApiRequest,
-  res: NextApiResponse
+export async function POST(
+  req: NextRequest
 ) {
-  const { products } = req.body as { products: Product[] };
+  const  { products }  = await req.json() as {products: Product[]};
 
   if (req.method !== "POST") {
-    res.status(405).json({ error: "method not allowed" });
+    new Response("method not allowed", {
+      status: 405
+    })
   }
 
   if (!products) {
-    res.status(400).json({ error: "Products not found!" });
+    new Response("Products not found!", {
+      status: 400
+    })
   }
 
   const successUrl = `${process.env.NEXT_URL}`;
@@ -29,7 +32,5 @@ export default async function POST(
     })),
   });
 
-  return res.status(201).json({
-    checkoutUrl: checkoutSession.url,
-  });
+  return Response.json({ checkoutUrl: checkoutSession.url })
 }

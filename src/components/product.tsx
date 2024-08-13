@@ -1,7 +1,17 @@
 'use client'
 
-import { Product as ProductProps, useStore } from "@/store";
+import { useStore } from "@/store";
 import { ShoppingCart } from "lucide-react";
+
+export interface ProductProps {
+  id: string;
+  name: string;
+  imageUrl: string;
+  price: string;
+  numberPrice: number;
+  description: string;
+  defaultPriceId: string;
+}
 
 interface IProduct {
   product: ProductProps

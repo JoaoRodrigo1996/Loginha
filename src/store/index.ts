@@ -1,3 +1,4 @@
+import Stripe from "stripe";
 import { create } from "zustand";
 
 export interface Product {
@@ -24,10 +25,13 @@ export const useStore = create<ProductState>((set) => {
 
     addProductToCart: async (product: Product) => {
       set((state) => ({
-        cartItems: [...state.cartItems, product]
+        cartItems: [...state.cartItems, product],
+        cartTotal: state.cartItems.reduce((total, item) => {
+          return total + item.numberPrice
+        },0)
       })
       )
-    },
+    },   
 
     removeProductFromCart: async (productId: string) => {
       set((state) => ({
