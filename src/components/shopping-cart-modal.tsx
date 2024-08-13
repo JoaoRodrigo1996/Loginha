@@ -2,21 +2,21 @@
 
 import { useStore } from "@/store";
 import axios from "axios";
-import { X } from "lucide-react";
+import { Trash2, X } from "lucide-react";
 
 interface ShoppingCartModalProps {
   closeShoppingCartModal: () => void
 }
 
 export function ShoppingCartModal({ closeShoppingCartModal }: ShoppingCartModalProps){
-  const { cartItems } = useStore((store) => {
+  const { cartItems, removeProductFromCart } = useStore((store) => {
     return {
-      cartItems: store.cartItems
+      cartItems: store.cartItems,
+      removeProductFromCart: store.removeProductFromCart
     }
   })
 
-  async function handleCheckout(){
-    
+  async function handleCheckout(){    
     try {      
       const response = await axios.post(`/api/checkout`, {
         products: cartItems
@@ -55,34 +55,43 @@ export function ShoppingCartModal({ closeShoppingCartModal }: ShoppingCartModalP
 
         <div className="w-full h-px bg-zinc-100" />
 
-        <div className="relative flex flex-col space-y-4 h-full">
-          <div className="flex flex-col gap-5">
-            {
-              cartItems.map(item => (
-                <div key={item.id} className="flex gap-3">
-                  <img src={item.imageUrl} alt="" className="w-24 rounded-xl" />
-                  <div className="flex flex-col justify-between">
-                    <p className="text-sm font-medium">{item.name}</p>
-                    <p className="text-lg font-bold">{item.price}</p>
-                  </div>
-                </div>
-              ))
-            }
-          </div>
+        {
+          cartItems.length <= 0 ? (
+            <p>Carrinho vazio</p>
+          ) : (
+            <div className="relative flex flex-col space-y-4 h-full">
+              <div className="flex flex-col gap-5">
+                {
+                  cartItems.map(item => (
+                    <div key={item.id} className="flex gap-3">
+                      <img src={item.imageUrl} alt="" className="w-24 rounded-xl" />
+                      <div className="flex flex-col justify-between">
+                        <p className="text-sm font-medium">{item.name}</p>
+                        <div className="flex items-center justify-between">
+                          <p className="text-lg font-bold">{item.price}</p>
+                          <button onClick={() => removeProductFromCart(item.id)}>
+                            <Trash2 className="size-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
 
-          <div className="w-full h-px bg-zinc-100" />
+              <div className="w-full h-px bg-zinc-100" />
 
-          <div className="flex items-center justify-between">
-            <p className="text-base text-zinc-800">Total</p>
-            <p className="text-2xl font-bold">{formattedTotal}</p>
-          </div>
+              <div className="flex items-center justify-between">
+                <p className="text-base text-zinc-800">Total</p>
+                <p className="text-2xl font-bold">{formattedTotal}</p>
+              </div>
+              <button onClick={handleCheckout} className="absolute bottom-0 right-0 left-0 w-full h-11 bg-black text-zinc-50 flex items-center justify-center gap-3 rounded-lg">
+                Comprar
+              </button>
+            </div>
+          )
+        }
 
-          
-          <button onClick={handleCheckout} className="absolute bottom-0 right-0 left-0 w-full h-11 bg-black text-zinc-50 flex items-center justify-center gap-3 rounded-lg">
-            Comprar
-          </button>
-          
-        </div>
       </div>
     </div>
   )

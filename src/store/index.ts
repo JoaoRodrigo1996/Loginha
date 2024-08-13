@@ -44,7 +44,7 @@ export const useStore = create<ProductState>((set, get) => {
 
     removeProductFromCart: (productId: string) => {
       set((state) => ({
-        cartItems: state.cartItems.filter(product => product.id === productId)
+        cartItems: state.cartItems.filter(product => product.id !== productId)
       }))
     },  
   }
