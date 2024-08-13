@@ -18,11 +18,14 @@ interface IProduct {
 }
 
 export function Product({ product }: IProduct){
-  const { addProductToCart } = useStore(store => {
+  const { addProductToCart, checkIfItemAlreadyInCart } = useStore(store => {
     return {
-      addProductToCart: store.addProductToCart
+      addProductToCart: store.addProductToCart,
+      checkIfItemAlreadyInCart: store.checkIfItemAlreadyInCart
     }
   })
+
+  const productAlreadyInCart = checkIfItemAlreadyInCart(product.id)
 
   return (
     <section className="flex justify-between gap-16">
@@ -35,9 +38,17 @@ export function Product({ product }: IProduct){
           <p className="text-sm">{product.description}</p>
           <p className="text-2xl font-bold">{product.price}</p>
         </div>
-        <button onClick={() => addProductToCart(product)} className="text-sm font-medium flex items-center justify-center gap-3 bg-black text-white w-full h-11 rounded-xl">
+
+        <button 
+          onClick={() => addProductToCart(product)} 
+          disabled={productAlreadyInCart}
+          className="disabled:opacity-70 disabled:cursor-not-allowed text-sm font-medium flex items-center justify-center gap-3 bg-black text-white w-full h-11 rounded-xl"
+        >
           <ShoppingCart className="size-4" />
-          Adicionar ao carrinho
+          {
+            productAlreadyInCart ? 'Produto já foi adicionado ao carrinho' : 'Adicionar ao carrinho'
+          }
+          
         </button>
       </div>
     </section>

@@ -1,4 +1,3 @@
-import Stripe from "stripe";
 import { create } from "zustand";
 
 export interface Product {
@@ -14,16 +13,19 @@ export interface Product {
 export interface ProductState {
   cartItems: Product[]
   cartTotal: number
-  addProductToCart: (product: Product) => Promise<void>
-  removeProductFromCart: (productId: string) => Promise<void>
+  productInCart: boolean
+  addProductToCart: (product: Product) => void
+  removeProductFromCart: (productId: string) => void
+  checkIfItemAlreadyInCart: (productId: string) => boolean | undefined
 }
 
-export const useStore = create<ProductState>((set) => {
+export const useStore = create<ProductState>((set, get) => {
   return {
     cartItems: [],
     cartTotal: 0,
+    productInCart: false,
 
-    addProductToCart: async (product: Product) => {
+    addProductToCart: (product: Product) => {
       set((state) => ({
         cartItems: [...state.cartItems, product],
         cartTotal: state.cartItems.reduce((total, item) => {
@@ -33,9 +35,16 @@ export const useStore = create<ProductState>((set) => {
       )
     },   
 
-    removeProductFromCart: async (productId: string) => {
+    checkIfItemAlreadyInCart: (productId: string) => {
+      const { cartItems } = get()
+      if(cartItems.some(product => product.id === productId)){
+        return true
+      }
+    },
+
+    removeProductFromCart: (productId: string) => {
       set((state) => ({
-        cartItems: state.cartItems.filter(item => item.id === productId)
+        cartItems: state.cartItems.filter(product => product.id === productId)
       }))
     },  
   }

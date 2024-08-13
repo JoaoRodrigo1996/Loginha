@@ -4,7 +4,6 @@ import { stripe } from "@/lib/stripe";
 import { Product as ProductProps } from "@/store";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import Stripe from "stripe";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const response = await stripe.products.retrieve(params.id, {
