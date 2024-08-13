@@ -29,7 +29,7 @@ export async function ProductList(){
         products.map((product: Product) => (
           <Link key={product.id} href={`/product/${product.id}`} className="flex items-center flex-col border rounded-xl bg-zinc-100 hover:cursor-pointer">
             <div className="">
-              <img src={product.imageUrl} alt="" className="rounded-xl object-cover" />
+              <img src={product.imageUrl} alt="" className="h-80 rounded-xl object-cover" />
             </div>
             <div className="p-4 space-y-2">
               <p className='font-semibold'>{product.name}</p>
