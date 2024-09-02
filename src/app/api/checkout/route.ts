@@ -19,8 +19,8 @@ export async function POST(
     })
   }
 
-  const successUrl = `${process.env.NEXT_URL}`;
-  const cancelUrl = `${process.env.NEXT_URL}`;
+  const successUrl = `https://loginha.vercel.app/`;
+  const cancelUrl = `https://loginha.vercel.app/`;
 
   const checkoutSession = await stripe.checkout.sessions.create({
     success_url: successUrl,
